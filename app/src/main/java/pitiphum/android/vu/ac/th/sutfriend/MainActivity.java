@@ -9,5 +9,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-}
+
+//        Add Fragment ใช้ตอนเปิด app ขึ้นมาครั้งแรก
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.contentFragmentMain, new MainFragment())
+                    .commit();
+        }
+
+
+    }  //  Main Method
+
+} // Main Class
