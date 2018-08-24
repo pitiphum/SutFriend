@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Add Fragment ใช้ตอนเปิด app ขึ้นมาครั้งแรก
+//        Add Fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
