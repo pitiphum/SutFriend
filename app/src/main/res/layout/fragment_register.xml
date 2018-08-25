@@ -35,6 +35,7 @@
 
             <!--Name-->
             <EditText
+                android:id="@+id/edtName"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/textfield_name"
                 android:inputType="text"
@@ -44,6 +45,7 @@
 
             <!--User-->
             <EditText
+                android:id="@+id/edtEmail"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/textfield_email"
                 android:inputType="text"
@@ -53,6 +55,7 @@
 
             <!--Password-->
             <EditText
+                android:id="@+id/edtPassword"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/textfield_password"
                 android:inputType="text"
