@@ -48,8 +48,8 @@
                 android:id="@+id/edtEmail"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/textfield_email"
-                android:inputType="text"
-                android:hint="User :"
+                android:inputType="textEmailAddress"
+                android:hint="Email :"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
