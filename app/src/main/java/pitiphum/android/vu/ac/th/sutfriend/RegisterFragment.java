@@ -27,6 +27,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -148,7 +150,7 @@ public class RegisterFragment extends Fragment {
     private void updateDatabase() {
 //        Find UID
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        String uidString = firebaseAuth.getUid();
+        final String uidString = firebaseAuth.getUid();
         Log.d("26AugV1", "uid ==> " + uidString);
 
 //        Find URL off Avata
@@ -167,6 +169,12 @@ public class RegisterFragment extends Fragment {
                         public void onSuccess(Uri uri) {
                             strings[0] = uri.toString();
                             Log.d("26AugV1", "url ==> " + strings[0]);
+
+                            insertValueToFirebase(uidString, strings[0]);
+
+
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -183,6 +191,36 @@ public class RegisterFragment extends Fragment {
 
 
     }   // updateDatabase
+
+    private void insertValueToFirebase(String uidString, String urlAvataString) {
+
+        //setter Value to model
+        UserSutModel userSutModel = new UserSutModel(nameString, urlAvataString);
+
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("User")
+                .child(uidString);
+
+        //getter by model
+        databaseReference.setValue(userSutModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "Welcome " + nameString, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), ServiceActivity.class));
+                        getActivity().finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("26AugV1", "e Database ==> " + e.toString());
+            }
+        });
+
+
+    } // insert
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
